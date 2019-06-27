@@ -1,0 +1,1213 @@
+
+<!DOCTYPE html>
+<html class="no-js" lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="alexaVerifyID" content="qqxQUyWSeUfqZOencfEoRM9vrVk" />
+<meta name="msvalidate.01" content="E8C9208AD2F47ED874ED18E35FC370CE" />
+<meta name="google-translate-customization" content="c567e5d7624a883b-609bf053fa02c58b-g01de0b1961de0feb-f"></meta>
+<meta property="article:publisher" content="https://facebook.com/tecmint" />
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<link rel="pingback" href="https://www.tecmint.com/xmlrpc.php">
+<title>How to Install and Configure Apache Tomcat 9 in CentOS</title>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">document.documentElement.className = document.documentElement.className.replace("no-js","js");</script>
+
+<meta name="description" content="Apache Tomcat is an open-source webserver developed by Apache Foundation to provide a pure Java HTTP server, which will enable you to run java applications easily." />
+<meta name="keywords" content="install apache tomcat 9 in centos,install tomcat in centos 7,install tomcat in centos 6,install tomcat in linux,apache tomcat,centos tips" />
+<link rel="canonical" href="https://www.tecmint.com/install-apache-tomcat-in-centos/" />
+
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Feed" href="https://feeds.feedburner.com/tecmint" />
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; Comments Feed" href="https://www.tecmint.com/comments/feed/" />
+<link href="//fonts.googleapis.com/css?family=Roboto+Condensed:400,300italic,300,400italic,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Tecmint: Linux Howtos, Tutorials &amp; Guides &raquo; How to Install and Configure Apache Tomcat 9 in CentOS Comments Feed" href="https://www.tecmint.com/install-apache-tomcat-in-centos/feed/" />
+
+
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="//www.tecmint.com/wp-content/cache/wpfc-minified/erci2ct/7nyb1.css" media="all" />
+<script src='//www.tecmint.com/wp-content/cache/wpfc-minified/2dg3vtye/7nyb1.js' type="ad3e3a031b224aee6dddbce0-text/javascript"></script>
+
+
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+/* <![CDATA[ */
+var ajaxurl = "https:\/\/www.tecmint.com\/wp-admin\/admin-ajax.php";
+var QBP_PUBLIC_GLOBALS = {"QBP_PUBLIC_NONCE":"c96106e53d","USER_TYPE":"public","VISIBILITY_DATA":{"is_page":false,"is_post":true,"is_homepage":false,"is_archive":false,"is_custom_post_type":false,"id":8451}};
+/* ]]> */
+</script>
+<script src='//www.tecmint.com/wp-content/cache/wpfc-minified/m93vw4rz/7nyb1.js' type="ad3e3a031b224aee6dddbce0-text/javascript"></script>
+
+<link rel='https://api.w.org/' href='https://www.tecmint.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.tecmint.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.tecmint.com/wp-includes/wlwmanifest.xml" />
+<link rel='prev' title='How to Create an HTTP Proxy Using Squid on CentOS 7' href='https://www.tecmint.com/install-squid-http-proxy-on-centos-7/' />
+<link rel='next' title='TCPflow &#8211; Analyze and Debug Network Traffic in Linux' href='https://www.tecmint.com/tcpflow-analyze-debug-network-traffic-in-linux/' />
+<meta name="generator" content="WordPress 5.2.2" />
+<link rel='shortlink' href='https://www.tecmint.com/?p=8451' />
+<link rel="alternate" type="application/json+oembed" href="https://www.tecmint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tecmint.com%2Finstall-apache-tomcat-in-centos%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.tecmint.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.tecmint.com%2Finstall-apache-tomcat-in-centos%2F&#038;format=xml" />
+
+<meta property="og:image" content="https://www.tecmint.com/wp-content/uploads/2014/08/Install-Apache-Tomcat-in-CentOS.png" />
+
+
+<link rel="shortcut icon" href="/wp-content/themes/tecmint/images/favicon.ico" />
+<!--[if lt IE 9]>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/html5.js"></script>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/selectivizr.js"></script>
+<![endif]-->
+<link rel="amphtml" href="https://www.tecmint.com/install-apache-tomcat-in-centos/amp/"><link rel="icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/tecmint_square_logo.png" sizes="32x32" />
+<link rel="icon" href="https://www.tecmint.com/wp-content/uploads/2015/01/tecmint_square_logo.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.tecmint.com/wp-content/uploads/2015/01/tecmint_square_logo.png" />
+<meta name="msapplication-TileImage" content="https://www.tecmint.com/wp-content/uploads/2015/01/tecmint_square_logo.png" />
+<style type="text/css">
+/* Dynamic CSS: For no styles in head, copy and put the css below in your custom.css or child theme's style.css, disable dynamic styles */
+body { font-family: "Roboto Condensed", Arial, sans-serif; }
+.boxed #wrapper, .container-inner { max-width: 1280px; }
+.sidebar .widget { padding-left: 20px; padding-right: 20px; padding-top: 20px; }
+.search-expand,
+#nav-topbar.nav-container { background-color: #23588c; }
+@media only screen and (min-width: 720px) {
+#nav-topbar .nav ul { background-color: #23588c; }
+}			
+#header { background-color: #075b88; }
+@media only screen and (min-width: 720px) {
+#nav-header .nav ul { background-color: #075b88; }
+}			
+#nav-header.nav-container { background-color: #2f6dab; }
+@media only screen and (min-width: 720px) {
+#nav-header .nav ul { background-color: #2f6dab; }
+}			
+#footer-bottom { background-color: #2f6dab; }
+.site-title a img { max-height: 90px; }
+img { -webkit-border-radius: 2px; border-radius: 2px; }
+</style>
+<link rel="author" href="https://plus.google.com/107665449243972690526/posts" />
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="ad3e3a031b224aee6dddbce0-text/javascript"></script>
+<script type="application/ld+json">
+{
+"@context": "http://schema.org",
+"@type": "WebSite",
+"url": "https://www.tecmint.com/",
+"potentialAction": {
+"@type": "SearchAction",
+"target": "https://www.tecmint.com/?s={search_term}",
+"query-input": "required name=search_term"
+}
+}
+</script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+this.randomtip=function(){var e=jQuery("#tips li").length,t=Math.floor(Math.random()*e)+1;jQuery("#tips li:nth-child("+t+")").show()},jQuery(document).ready(function($){randomtip()});</script>
+<script data-cfasync="false" type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-33207530-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" type="ad3e3a031b224aee6dddbce0-text/javascript"></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({
+google_ad_client: "ca-pub-2601749019656699",
+enable_page_level_ads: true
+});
+</script>
+</head>
+<body data-rsssl=1 class="post-template-default single single-post postid-8451 single-format-standard col-2cl full-width topbar-enabled gecko">
+<div id="wrapper">
+<header id="header">
+<nav class="nav-container group" id="nav-topbar">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"></div>
+<div class="nav-wrap container"><ul id="menu-home" class="nav container-inner group"><li id="menu-item-334" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-334"><a href="https://www.tecmint.com">Home</a></li>
+<li id="menu-item-10774" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10774"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/who-we-are/">About</a></li>
+<li id="menu-item-3912" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3912"><a title="Free Linux eBooks" target="_blank" rel="noopener noreferrer" href="http://tecmint.tradepub.com/category/information-technology-servers-and-linux-server-os/806/">Free eBooks</a></li>
+<li id="menu-item-17151" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17151"><a title="Discover and save on the best gear, gadgets, and software" target="_blank" rel="noopener noreferrer" href="https://deals.tecmint.com">Deals</a></li>
+<li id="menu-item-18575" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18575"><a title="Support Us" href="https://www.tecmint.com/donate-to-tecmint/">Donate</a></li>
+<li id="menu-item-10775" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10775"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/submit-articles/">Join TecMint</a></li>
+<li id="menu-item-11736" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-11736"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/linux-online-training-courses/">Linux Online Courses</a></li>
+<li id="menu-item-11907" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11907"><a title="Subscribe to Daily Updates" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/subscribe-to-blog/">Subscribe</a></li>
+<li id="menu-item-13338" class="hosting menu-item menu-item-type-custom menu-item-object-custom menu-item-13338"><a title="Best Web Hosting Companies" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/best-web-hosting-for-linux/">Linux Hosting</a></li>
+<li id="menu-item-24734" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24734"><a title="Linux Commands &#8211; A Beginners Cheat Sheet" target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/linux-commands-cheat-sheet/">A-Z Linux Commands</a></li>
+</ul></div>
+<div class="container">
+<div class="container-inner">
+<div class="toggle-search"><i class="fa fa-search"></i></div>
+<div class="search-expand">
+<div class="search-expand-inner">
+<form action="https://www.tecmint.com/search/" id="cse-search-box">
+<div>
+<input type="hidden" name="cx" value="partner-pub-2601749019656699:2173448976" />
+<input type="hidden" name="cof" value="FORID:10" />
+<input type="hidden" name="ie" value="UTF-8" />
+<input type="text" class="search" name="q" size="20" />
+<input type="submit" name="sa" value="Search" />
+</div>
+</form>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src="https://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<div class="container group">
+<div class="container-inner">
+<div class="group pad">
+<p class="site-title"><a href="https://www.tecmint.com/" rel="home"><img src="/wp-content/themes/tecmint/images/logo.png" alt="Tecmint: Linux Howtos, Tutorials &amp; Guides"></a></p>
+<div id="header-ads">
+<div id="text-17" class="widget widget_text"> <div class="textwidget">
+<ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-2601749019656699" data-ad-slot="8210224606"></ins>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+</div> </div>
+</div>
+<nav class="nav-container group" id="nav-header">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"></div>
+<div class="nav-wrap container"><ul id="menu-header" class="nav container-inner group"><li id="menu-item-20410" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20410"><a target="_blank" rel="noopener noreferrer" href="https://www.fossmint.com">Linux News</a></li>
+<li id="menu-item-10770" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10770"><a href="https://www.tecmint.com/best-linux-distributions/">Linux Distro&#8217;s</a></li>
+<li id="menu-item-10771" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10771"><a href="https://www.tecmint.com/category/interview-questions/">Interview Questions</a></li>
+<li id="menu-item-20869" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-20869"><a href="https://www.tecmint.com/#">Programming</a>
+<ul class="sub-menu">
+<li id="menu-item-10772" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10772"><a title="Learn Linux Shell Scripting" href="https://www.tecmint.com/category/bash-shell/">Shell Scripting</a></li>
+<li id="menu-item-20870" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20870"><a href="https://www.tecmint.com/category/python/">Learn Python</a></li>
+<li id="menu-item-20871" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20871"><a href="https://www.tecmint.com/category/awk-command/">Learn Awk</a></li>
+</ul>
+</li>
+<li id="menu-item-10773" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-10773"><a href="https://www.tecmint.com/category/linux-commands/">Linux Commands</a></li>
+<li id="menu-item-14795" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14795"><a href="https://www.tecmint.com/tag/linux-tricks/">Linux Tricks</a></li>
+<li id="menu-item-19684" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19684"><a href="https://www.tecmint.com/category/top-tools/">Best Linux Tools</a></li>
+<li id="menu-item-10443" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-10443"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/#">Certifications</a>
+<ul class="sub-menu">
+<li id="menu-item-14880" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14880"><a href="https://www.tecmint.com/how-to-setup-and-configure-static-network-routing-in-rhel/">RHCE Exam</a></li>
+<li id="menu-item-11906" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11906"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/rhcsa-exam-reviewing-essential-commands-system-documentation/">RHCSA Exam</a></li>
+<li id="menu-item-10444" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10444"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">LFCE Exam</a></li>
+<li id="menu-item-14793" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14793"><a href="https://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">LFCS Exam</a></li>
+</ul>
+</li>
+<li id="menu-item-12399" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-has-children menu-item-12399"><a href="https://www.tecmint.com/#">Guides</a>
+<ul class="sub-menu">
+<li id="menu-item-18564" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-18564"><a target="_blank" rel="noopener noreferrer" href="https://www.tecmint.com/install-docker-and-learn-containers-in-centos-rhel-7-6/">Docker Series</a></li>
+<li id="menu-item-17150" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-17150"><a href="https://www.tecmint.com/setup-postfix-mail-server-and-dovecot-with-mariadb-in-centos/">Postfix Mail</a></li>
+<li id="menu-item-15041" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-15041"><a href="https://www.tecmint.com/citrix-xenserver-installation-and-network-configuration-in-linux/">XenServer Series</a></li>
+<li id="menu-item-14794" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14794"><a href="https://www.tecmint.com/install-redhat-virtualization-rhev/">RHEV Series</a></li>
+<li id="menu-item-14805" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14805"><a href="https://www.tecmint.com/what-is-clustering-and-advantages-disadvantages-of-clustering-in-linux/">Clustering Series</a></li>
+<li id="menu-item-12400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12400"><a href="https://www.tecmint.com/create-lvm-storage-in-linux/">LVM Series</a></li>
+<li id="menu-item-12402" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12402"><a href="https://www.tecmint.com/understanding-raid-setup-in-linux/">RAID Series</a></li>
+<li id="menu-item-12403" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12403"><a href="https://www.tecmint.com/install-and-configure-kvm-in-linux/">KVM Series</a></li>
+<li id="menu-item-12401" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12401"><a href="https://www.tecmint.com/create-centralized-secure-storage-using-iscsi-targetin-linux/">iSCSI Series</a></li>
+<li id="menu-item-12406" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12406"><a href="https://www.tecmint.com/install-zentyal-as-primary-domain-controller-and-integrate-windows-system/">Zentyal Series</a></li>
+<li id="menu-item-16084" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16084"><a href="https://www.tecmint.com/install-and-configure-ansible-automation-tool-in-linux/">Ansible Series</a></li>
+<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-16395"><a href="https://www.tecmint.com/install-and-configure-django-web-framework-in-centos-debian-ubuntu/">Django Series</a></li>
+<li id="menu-item-14603" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14603"><a href="https://www.tecmint.com/create-gui-applications-in-linux/">Create GUI Apps</a></li>
+</ul>
+</li>
+<li id="menu-item-14796" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-14796"><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">Monitoring Tools</a>
+<ul class="sub-menu">
+<li id="menu-item-14797" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14797"><a href="https://www.tecmint.com/install-nagios-in-linux/">Nagios</a></li>
+<li id="menu-item-14798" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14798"><a href="https://www.tecmint.com/install-and-configure-zabbix-monitoring-on-debian-centos-rhel/">Zabbix</a></li>
+<li id="menu-item-14799" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14799"><a href="https://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/">Cacti</a></li>
+<li id="menu-item-14800" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14800"><a href="https://www.tecmint.com/install-observium-in-centos/">Observium</a></li>
+<li id="menu-item-14801" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14801"><a href="https://www.tecmint.com/monitorix-a-lightweight-system-and-network-monitoring-tool-for-linux/">Monitorix</a></li>
+<li id="menu-item-14802" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14802"><a href="https://www.tecmint.com/install-collectd-and-collectd-web-to-monitor-server-resources-in-linux/">Collectd</a></li>
+<li id="menu-item-14803" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14803"><a href="https://www.tecmint.com/linux-performance-monitoring-with-collectl-tool/">Collectl</a></li>
+<li id="menu-item-14804" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14804"><a href="https://www.tecmint.com/mysql-performance-monitoring/">MySQL Monitoring</a></li>
+</ul>
+</li>
+</ul></div>
+</nav>
+</div>
+</div>
+</header>
+<div class="container" id="page">
+<div class="container-inner">
+<div class="main">
+<div class="main-inner group">
+<section class="content">
+<div class="page-title pad group">
+<ul class="meta-single group">
+<li class="category"><a href="https://www.tecmint.com/category/linux-distros/centos/" rel="category tag">CentOS</a> <span>/</span> <a href="https://www.tecmint.com/category/tomcat/" rel="category tag">Tomcat</a></li>
+<li class="comments"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/#comments"><i class="fa fa-comments-o"></i>33</a></li>
+</ul>
+</div>
+<div class="pad group">
+<article class="post-8451 post type-post status-publish format-standard has-post-thumbnail hentry category-centos category-tomcat tag-apache-tomcat tag-centos-tips">
+<div class="post-inner group">
+<h1 class="post-title">How to Install and Configure Apache Tomcat 9 in CentOS</h1>
+<p class="post-byline">by <a href="https://www.tecmint.com/author/admin/" title="Posts by Ravi Saive" rel="author">Ravi Saive</a> | Published: September 24, 2018 | 
+Last Updated: January 28, 2019 </p>
+<div class="add-box">
+
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2601749019656699" data-ad-slot="2902592253" data-ad-format="link"></ins>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+<div class="clear"></div>
+<div id="exam_announcement">
+<i style="color:#28557a; font-size:20px;" class="fa fa-book"></i>
+<b>Download Your Free eBooks NOW</b> - <a target="_blank" style="text-decoration:underline;" href="https://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/" style="color:#dd3333;font-weight:400; font-size:16px;">10 Free Linux eBooks for Administrators</a> | <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/free-linux-shell-scripting-books/" style="color:#e54e7e;font-weight:400; font-size:16px;">4 Free Shell Scripting eBooks</a>
+</div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center>
+
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9946480174"></ins>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="entry share">
+<div class="entry-inner">
+<p><strong>Apache Tomcat</strong> (earlier known as <strong>Jakarta Tomcat</strong>) is an open-source web server developed by <strong>Apache Foundation</strong> to provide a pure Java HTTP server, which will enable you to run Java files easily, which means that <strong>Tomcat</strong> is not a normal server like <strong>Apache</strong> or <strong>Nginx</strong>, because its main goal is to provide a good web environment to run Java applications only unlike other normal web servers.</p>
+<p>Recently, on <strong>December 06, 2018</strong>, Apache Tomcat reached to version <strong>9</strong> (i.e. <strong>9.0.14</strong>), which is the first stable release of the series 9.x.0. This Apache Tomcat 9 version comes with numerous improvements as compared to previous Tomcat 8 version.</p>
+<p>Some of noticeable changes included in this release are: support for Java Servlet 3.1, JavaServer Pages 2.3, Java Websocket 1.0, etc. and other numerous fixes for issues, as well as number of other enhancements and changes.</p>
+<p>This article will walk you throughout the installation of Apache <strong>Tomcat 9</strong> on <strong>RHEL/CentOS 7.0/6.x</strong>. For Ubuntu, follow <a href="https://www.tecmint.com/install-apache-tomcat-in-ubuntu/" rel="noopener" target="_blank">How to Install Apache Tomcat in Ubuntu</a>.</p>
+<h3>Step 1: Installing and Configuring Java 8</h3>
+<center style="padding-bottom: 20px;padding-top: 10px;"><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2601749019656699" data-ad-slot="5590002574" data-ad-format="auto" data-full-width-responsive="true"></ins><script type="ad3e3a031b224aee6dddbce0-text/javascript">(adsbygoogle = window.adsbygoogle || []).push({});</script></center><p>Before heading up for the Tomcat installation, make sure you must have <strong>JAVA</strong> installed on your Linux box to run Tomcat. If not, <a href="https://www.tecmint.com/install-java-jdk-jre-on-rhel-centos-fedora/" target="_blank" rel="noopener">install the latest version of JAVA 9</a> or use the following <a href="https://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/" target="_blank" rel="noopener">yum command</a> to install available Java (i.e version 8) from the default repositories.</p>
+<pre># yum install java-1.8.0
+</pre>
+<p>Once Java installed, you can verify the newly installed JAVA version running the following command on your system.</p>
+<pre># java -version
+</pre>
+<h5>Sample Output</h5>
+<pre>openjdk version <strong>"1.8.0_181"</strong>
+OpenJDK Runtime Environment (build 1.8.0_181-b13)
+OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)
+</pre>
+<h3>Step 2: Installing Apache Tomcat 9</h3>
+<p>After installing JAVA on the system, now it&#8217;s time to download latest version of Apache Tomcat (i.e. <strong>9.0.14</strong>) is the most recent stable version at the time of writing this article. If you want to make a cross check, head over to following Apache download page and check if there is a newer version available.</p>
+<ol>
+<li><a href="https://tomcat.apache.org/download-90.cgi" target="_blank" rel="nofollow noopener">hhttps://tomcat.apache.org/download-90.cgi</a></li>
+</ol>
+<p>Now download the latest version of Apache Tomcat 9, using following <a href="https://www.tecmint.com/10-wget-command-examples-in-linux/" target="_blank" rel="noopener">wget command</a> and setup it as shown.</p>
+<pre># cd /usr/local
+# wget http://www-us.apache.org/dist/tomcat/tomcat-9/v9.0.14/bin/apache-tomcat-9.0.14.tar.gz
+# tar -xvf apache-tomcat-9.0.14.tar.gz
+# mv apache-tomcat-9.0.14 tomcat9
+</pre>
+<p><strong style="color: red;">Note</strong>: Replace the version number above with the latest version available if it was different.</p>
+<p>Before starting the Tomcat Service, configure <strong>CATALINA_HOME</strong> environment variable in your system using following command.</p>
+<pre># echo "export CATALINA_HOME="/usr/local/tomcat9"" &gt;&gt; ~/.bashrc
+# source ~/.bashrc
+</pre>
+<p>Now we all set to start the tomcat web server using the scripts provided by the tomcat package.</p>
+<pre># cd /usr/local/tomcat9/bin
+# ./startup.sh 
+</pre>
+<h5>Sample Output</h5>
+<pre>Using CATALINA_BASE:   /usr/local/tomcat9
+Using CATALINA_HOME:   /usr/local/tomcat9
+Using CATALINA_TMPDIR: /usr/local/tomcat9/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /usr/local/tomcat9/bin/bootstrap.jar:/usr/local/tomcat9/bin/tomcat-juli.jar
+Tomcat started.
+</pre>
+<p>Now to open Tomcat from your browser, go to your IP or domain with the <strong>8080</strong> port (because Tomcat will always run on the <strong>8080</strong> port) as an example: mydomain.com:8080, replace mydomain.com with your IP or domain.</p>
+<pre>http://Your-IP-Address:8080
+OR
+http://Your-Domain.com:8080
+</pre>
+<div id="attachment_30629" style="width: 1158px" class="wp-caption aligncenter"><a href="https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat.png"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat.png" aria-describedby="caption-attachment-30629" class="size-full wp-image-30629" alt="Verify Apache Tomcat" width="1148" height="815" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat.png 1148w, https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat-768x545.png 768w" sizes="(max-width: 1148px) 100vw, 1148px"><noscript><img aria-describedby="caption-attachment-30629" class="size-full wp-image-30629" src="https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat.png" alt="Verify Apache Tomcat" width="1148" height="815" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat.png 1148w, https://www.tecmint.com/wp-content/uploads/2014/08/Verify-Apache-Tomcat-768x545.png 768w" sizes="(max-width: 1148px) 100vw, 1148px" /></noscript></a><p id="caption-attachment-30629" class="wp-caption-text">Verify Apache Tomcat</p></div>
+<p>The default directory for Tomcat files will be in <strong>/usr/local/tomcat9</strong>, you can view the configuration files inside the <code>conf</code> folder, the main page that you seen above, when you open your website on the 8080 port is in <strong>/usr/local/tomcat9/webapps/ROOT/</strong>.</p>
+<h3>Step 3: Configuring Apache Tomcat 9</h3>
+<p>By default you only able to access default Tomcat page, to access <strong>admin</strong> and other sections like <strong>Server Status</strong>, <strong>Manager App</strong> and <strong>Host Manager</strong>. You need to configure user accounts for admins and managers.</p>
+<p>To do so, you need to edit &#8216;<strong>tomcat-users.xml</strong>&#8216; file located under <strong>/usr/local/tomcat9/conf</strong> directory.</p>
+<h4>Setup Tomcat User Accounts</h4>
+<p>For example, to assign the <strong>manager-gui</strong> role to a user named &#8216;<strong>tecmint</strong>&#8216; with a password &#8216;<strong>t$cm1n1</strong>&#8216;, add the following line of code to the config file inside the section.</p>
+<pre># vi /usr/local/tomcat9/conf/tomcat-users.xml 
+</pre>
+<pre>&lt;role rolename="manager-gui"/&gt;
+&lt;user username="<strong>tecmint</strong>" password="<strong>t$cm1n1</strong>" roles="manager-gui"/&gt;
+</pre>
+<p>Similarly, you can also add &#8216;<strong>admin-gui</strong>&#8216; role to a admin user named &#8216;<strong>admin</strong>&#8216; with a password &#8216;<strong>adm!n</strong>&#8216; as shown below.</p>
+<pre>&lt;role rolename="admin-gui"/&gt;
+&lt;user username="admin" password="adm!n" roles="admin-gui"/&gt;
+</pre>
+<div id="attachment_30630" style="width: 819px" class="wp-caption aligncenter"><a href="https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles.png"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles.png" aria-describedby="caption-attachment-30630" class="size-full wp-image-30630" alt="Configure Apache Tomcat User Roles" width="809" height="654" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles.png 809w, https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles-768x621.png 768w" sizes="(max-width: 809px) 100vw, 809px"><noscript><img aria-describedby="caption-attachment-30630" class="size-full wp-image-30630" src="https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles.png" alt="Configure Apache Tomcat User Roles" width="809" height="654" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles.png 809w, https://www.tecmint.com/wp-content/uploads/2014/08/Configure-Apache-Tomcat-User-Roles-768x621.png 768w" sizes="(max-width: 809px) 100vw, 809px" /></noscript></a><p id="caption-attachment-30630" class="wp-caption-text">Configure Apache Tomcat User Roles</p></div>
+<p>After setting up the admin and managers roles, restart the Tomcat and then try to access the admin section.</p>
+<pre>./shutdown.sh 
+./startup.sh
+</pre>
+<p>Now click on &#8216;<strong>Server Status</strong>&#8216; tab, it will prompt you to enter user credentials, enter username and password that you&#8217;ve added above in config file.</p>
+<div id="attachment_30631" style="width: 1158px" class="wp-caption aligncenter"><a href="https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login.png"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login.png" aria-describedby="caption-attachment-30631" class="size-full wp-image-30631" alt="Apache Tomcat User Login" width="1148" height="815" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login.png 1148w, https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login-768x545.png 768w" sizes="(max-width: 1148px) 100vw, 1148px"><noscript><img aria-describedby="caption-attachment-30631" class="size-full wp-image-30631" src="https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login.png" alt="Apache Tomcat User Login" width="1148" height="815" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login.png 1148w, https://www.tecmint.com/wp-content/uploads/2014/08/Apache-Tomcat-User-Login-768x545.png 768w" sizes="(max-width: 1148px) 100vw, 1148px" /></noscript></a><p id="caption-attachment-30631" class="wp-caption-text">Apache Tomcat User Login</p></div>
+<p>Once, you enter user credentials, you will find a page similar to below.</p>
+<div id="attachment_30632" style="width: 1158px" class="wp-caption aligncenter"><a href="https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status.png"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status.png" aria-describedby="caption-attachment-30632" class="size-full wp-image-30632" alt="Monitor Apache Tomcat Server Status" width="1148" height="815" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status.png 1148w, https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status-768x545.png 768w" sizes="(max-width: 1148px) 100vw, 1148px"><noscript><img aria-describedby="caption-attachment-30632" class="size-full wp-image-30632" src="https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status.png" alt="Monitor Apache Tomcat Server Status" width="1148" height="815" srcset="https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status.png 1148w, https://www.tecmint.com/wp-content/uploads/2014/08/Monitor-Apache-Tomcat-Server-Status-768x545.png 768w" sizes="(max-width: 1148px) 100vw, 1148px" /></noscript></a><p id="caption-attachment-30632" class="wp-caption-text">Monitor Apache Tomcat Server Status</p></div>
+<h4>Changing Apache Tomcat Port</h4>
+<p>If you want to run Tomcat on different port say <strong>80</strong> port. You will have to edit the &#8216;<strong>server.xml</strong>&#8216; file in &#8216;<strong>/usr/local/tomcat9/conf/</strong>&#8216;. Before changing, port, make sure to stop the Tomcat server using.</p>
+<pre># /usr/local/tomcat9/bin/shutdown.sh
+</pre>
+<p>Now open the <strong>server.xml</strong> file using the <strong>Vi</strong> editor.</p>
+<pre># vi /usr/local/tomcat9/conf/server.xml
+</pre>
+<p>Now search for “<strong>Connector port</strong>” and change its value from <strong>8080</strong> to <strong>80</strong> or any other port you want as it follows.</p>
+<div id="attachment_30633" style="width: 766px" class="wp-caption aligncenter"><a href="https://www.tecmint.com/wp-content/uploads/2014/08/Change-Apache-Tomcat-Port.png"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/08/Change-Apache-Tomcat-Port.png" aria-describedby="caption-attachment-30633" class="size-full wp-image-30633" alt="Change Apache Tomcat Port" width="756" height="486"><noscript><img aria-describedby="caption-attachment-30633" class="size-full wp-image-30633" src="https://www.tecmint.com/wp-content/uploads/2014/08/Change-Apache-Tomcat-Port.png" alt="Change Apache Tomcat Port" width="756" height="486" /></noscript></a><p id="caption-attachment-30633" class="wp-caption-text">Change Apache Tomcat Port</p></div>
+<p>To save the file and restart the Apache Tomcat server again, using below command.</p>
+<pre># /usr/local/tomcat9/bin/startup.sh
+</pre>
+<p>That&#8217;s it, you server will be running on the 80 port.</p>
+<p>Of course, you have to run all the above commands as a <strong>root</strong>, if you don&#8217;t they won&#8217;t work because we are working in the &#8216;<strong>/usr/local</strong>&#8216; directory which is a folder owned by the root user only, if you want you can run the server as a normal user but you will have to use your <strong>HOME</strong> folder as a working area to download, extract and run the Apache Tomcat server.</p>
+<p>To get some information about your running Tomcat server and your computer, run.</p>
+<pre>/usr/local/tomcat9/bin/version.sh
+</pre>
+<h5>Sample Output</h5>
+<pre>Using CATALINA_BASE:   /usr/local/tomcat9
+Using CATALINA_HOME:   /usr/local/tomcat9
+Using CATALINA_TMPDIR: /usr/local/tomcat9/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /usr/local/tomcat9/bin/bootstrap.jar:/usr/local/tomcat9/bin/tomcat-juli.jar
+Tomcat started.
+[<a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f4d50504b7f4b5a5c5256514b">[email&#160;protected]</a> tomcat9]# /usr/local/tomcat9/bin/version.sh
+Using CATALINA_BASE:   /usr/local/tomcat9
+Using CATALINA_HOME:   /usr/local/tomcat9
+Using CATALINA_TMPDIR: /usr/local/tomcat9/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /usr/local/tomcat9/bin/bootstrap.jar:/usr/local/tomcat9/bin/tomcat-juli.jar
+Server version: Apache Tomcat/9.0.12
+Server built:   Sep 4 2018 22:13:41 UTC
+Server number:  9.0.12.0
+OS Name:        Linux
+OS Version:     3.10.0-693.el7.x86_64
+Architecture:   amd64
+JVM Version:    1.8.0_181-b13
+JVM Vendor:     Oracle Corporation
+</pre>
+<p>That&#8217;s it! Now you can start deploying JAVA based applications under <strong>Apache Tomcat 9</strong>. For more about on how to deploy applications and create virtual hosts, check out the official <a href="https://tomcat.apache.org/tomcat-9.0-doc/index.html" target="_blank" rel="nofollow noopener">Tomcat documentation</a>.</p>
+</div>
+<div class="sharrre-container">
+<span>Share</span>
+<div id="twitter" data-url="https://www.tecmint.com/install-apache-tomcat-in-centos/" data-text="How to Install and Configure Apache Tomcat 9 in CentOS" data-title="Tweet"><a class="box" href="#"><div class="count" href="#">+</div><div class="share"><i class="fa fa-twitter"></i></div></a></div>
+<div id="facebook" data-url="https://www.tecmint.com/install-apache-tomcat-in-centos/" data-text="How to Install and Configure Apache Tomcat 9 in CentOS" data-title="Like"><a class="box" href="#"><div class="count" href="#">+</div><div class="share"><i class="fa fa-facebook"></i></div></a></div>
+<div id="googleplus" data-url="https://www.tecmint.com/install-apache-tomcat-in-centos/" data-text="How to Install and Configure Apache Tomcat 9 in CentOS" data-title="+1"></div>
+<div id="linkedin" data-url="https://www.tecmint.com/install-apache-tomcat-in-centos/" data-text="How to Install and Configure Apache Tomcat 9 in CentOS" data-title="Share It"></div>
+<div style="font-weight: 600; padding-top: 10px; width: 55px;"><a href="#comments"><img alt="Ask Anything" src="https://www.tecmint.com/wp-content/themes/tecmint/images/help.png"></a></div>
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="ad3e3a031b224aee6dddbce0-text/javascript">
+// Sharrre
+jQuery(document).ready(function(){
+jQuery('#twitter').sharrre({
+share: {
+twitter: true
+},
+template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-twitter"></i></div></a>',
+enableHover: false,
+enableTracking: true,
+buttons: { twitter: {via: 'tecmint'}},
+click: function(api, options){
+api.simulateClick();
+api.openPopup('twitter');
+}
+});
+jQuery('#facebook').sharrre({
+share: {
+facebook: true
+},
+template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-facebook-square"></i></div></a>',
+enableHover: false,
+enableTracking: true,
+click: function(api, options){
+api.simulateClick();
+api.openPopup('facebook');
+}
+});
+jQuery('#googleplus').sharrre({
+share: {
+googlePlus: true
+},
+template: '<a class="box" href="#"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-google-plus-square"></i></div></a>',
+enableHover: false,
+enableTracking: true,
+urlCurl: 'https://www.tecmint.com/wp-content/themes/tecmint/js/sharrre.php',
+click: function(api, options){
+api.simulateClick();
+api.openPopup('googlePlus');
+}
+});
+jQuery('#linkedin').sharrre({
+share: {
+linkedin: true
+},
+template: '<a class="box" href="#" rel="nofollow"><div class="count" href="#">{total}</div><div class="share"><i class="fa fa-linkedin"></i></div></a>',
+enableHover: false,
+enableTracking: true,
+buttons: {
+linkedin: {
+description: 'How to Install and Configure Apache Tomcat 9 in CentOS',media: 'https://www.tecmint.com/wp-content/uploads/2014/08/Install-Apache-Tomcat-in-CentOS.png'				}
+},
+click: function(api, options){
+api.simulateClick();
+api.openPopup('linkedin');
+}
+});
+// Scrollable sharrre bar, contributed by Erik Frye. Awesome!
+var shareContainer = jQuery(".sharrre-container"),
+header = jQuery('#header'),
+postEntry = jQuery('.entry'),
+$window = jQuery(window),
+distanceFromTop = 20,
+startSharePosition = shareContainer.offset(),
+contentBottom = postEntry.offset().top + postEntry.outerHeight(),
+topOfTemplate = header.offset().top;
+getTopSpacing();
+shareScroll = function(){
+if($window.width() > 719){	
+var scrollTop = $window.scrollTop() + topOfTemplate,
+stopLocation = contentBottom - (shareContainer.outerHeight() + topSpacing);
+if(scrollTop > stopLocation){
+shareContainer.offset({top: contentBottom - shareContainer.outerHeight(),left: startSharePosition.left});
+}
+else if(scrollTop >= postEntry.offset().top-topSpacing){
+shareContainer.offset({top: scrollTop + topSpacing, left: startSharePosition.left});
+}else if(scrollTop < startSharePosition.top+(topSpacing-1)){
+shareContainer.offset({top: startSharePosition.top,left:startSharePosition.left});
+}
+}
+},
+shareMove = function(){
+startSharePosition = shareContainer.offset();
+contentBottom = postEntry.offset().top + postEntry.outerHeight();
+topOfTemplate = header.offset().top;
+getTopSpacing();
+};
+/* As new images load the page content body gets longer. The bottom of the content area needs to be adjusted in case images are still loading. */
+setTimeout(function() {
+contentBottom = postEntry.offset().top + postEntry.outerHeight();
+}, 2000);
+if (window.addEventListener) {
+window.addEventListener('scroll', shareScroll, false);
+window.addEventListener('resize', shareMove, false);
+} else if (window.attachEvent) {
+window.attachEvent('onscroll', shareScroll);
+window.attachEvent('onresize', shareMove);
+}
+function getTopSpacing(){
+if($window.width() > 1024)
+topSpacing = distanceFromTop + jQuery('.nav-wrap').outerHeight();
+else
+topSpacing = distanceFromTop;
+}
+});
+</script>
+<div class="clear"></div>
+</div>
+</div>
+</article>
+<div class="clear"></div>
+<div class="clear"></div>
+<div class="ads-inner-mobile">
+<center style="padding-top:30px;">
+
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7807254572"></ins>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center>
+</div>
+<div class="clear"></div>
+<div class="after-post-box">
+<h2>If You Appreciate What We Do Here On TecMint, You Should Consider:</h2>
+<ol>
+<li>Stay Connected to: <strong><a target="_blank" rel="nofollow" href="https://bit.ly/1TP6lcM" title="Follow TecMint on Twitter">Twitter</a></strong> | <strong><a target="_blank" rel="nofollow" href="https://bit.ly/1rDYrdj" title="Like Us on Facebook">Facebook</a></strong> | <strong><a target="_blank" rel="nofollow" href="https://bit.ly/24J6lna" title="Join Us On Google+">Google Plus</a></strong></li>
+<li>Subscribe to our email updates: <strong><a target="_blank" rel="nofollow" href="https://bit.ly/2dhBpWQ" title="Subscribe to TecMint Email Updates">Sign Up Now</a></strong></li>
+<li>Get your own <strong><a target="_blank" rel="nofollow" title="WordPress Hosting" href="https://www.bluehost.com/track/tecmint/">self-hosted blog with a Free Domain</a></strong> at (<strong>$3.45/month</strong>).</li>
+<li>Become a Supporter - <strong><a target="_blank" href="https://www.tecmint.com/donate-to-tecmint/">Make a contribution via PayPal</a></strong></li>
+<li>Support us by <strong><a href="https://www.tecmint.com/linux-books-in-pdf-format/" target="_blank">purchasing our premium books</a></strong> in PDF format.</li>
+<li>Support us by taking our <strong><a rel="nofollow" target="_blank" href="https://deals.tecmint.com/search?utf8=%E2%9C%93&query=linux">online Linux courses</a></strong></li>
+</ol>
+<p style="text-align: center;"><strong style=" color:#fe3300;font-size:20px;">We are thankful for your never ending support.</strong></p>
+</div>
+<div class="clear"></div>
+<p class="post-tags"><span>Tags:</span> <a href="https://www.tecmint.com/tag/apache-tomcat/" rel="tag">apache tomcat</a><a href="https://www.tecmint.com/tag/centos-tips/" rel="tag">CentOS Tips</a></p> <div class="author-bio">
+<div class="bio-avatar"><img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=128&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=256&#038;d=blank&#038;r=g 2x" class="avatar avatar-128 photo" height="128" width="128"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=128&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=256&#038;d=blank&#038;r=g 2x' class='avatar avatar-128 photo' height='128' width='128' /></noscript></div>
+<p style="float:right; font-weight:600;"><a target="_blank" class="author-link" href="https://www.tecmint.com/author/admin/" rel="author">View all Posts</a></p>
+<p class="bio-name">Ravi Saive</p>
+<p class="bio-desc">I am Ravi Saive, creator of TecMint. A Computer Geek and Linux Guru who loves to share tricks and tips on Internet. Most Of My Servers runs on Open Source Platform called Linux. <b>Follow Me</b>: <b><a rel="nofollow" title="Follow Me on Twitter" href="https://twitter.com/ravisaive">Twitter</a></b>, <b><a rel="nofollow" title="Follow Me on Facebook" href="https://www.facebook.com/ravi.saive">Facebook</a></b> and <b><a rel="nofollow" title="Join Me on Google+" href="https://plus.google.com/u/0/+RaviSaive">Google+</a></b></p>
+<p><span style="font-size:20px;font-weight:400;color:#a2042e">Your name can also be listed here. Got a tip? <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/submit-articles/">Submit it here</a> to become an <b>TecMint</b> author.</span></p>
+<div class="clear"></div>
+</div>
+<div class="hr"></div>
+<div class="grid one-fourth">
+<a href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" target="_blank"><img alt="RedHat RHCE and RHCSA Certification Book" width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/RedHat-RHCSA-RHCE-Exam-Study-Ebook.png" style="margin-right:10px;"></a>
+</div>
+<div class="grid one-fourth">
+<a href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" target="_blank"><img alt="Linux Foundation LFCS and LFCE Certification Preparation Guide" width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Linux-Foundation-LFCS-LFCE-Certification-Ebook.png"></a>
+</div>
+<div class="grid one-fourth">
+<a href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&utm_medium=referral&utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu" rel="nofollow" target="_blank"><img width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Linux-System-Administrator-Course.png" style="margin-right:10px;"></a>
+</div>
+<div class="grid one-fourth last">
+<a href="https://deals.tecmint.com/sales/become-an-ethical-hacker-bonus-bundle?utm_source=tecmint.com&utm_medium=referral&utm_campaign=become-an-ethical-hacker-bonus-bundle_090216" rel="nofollow" target="_blank"><img width="200" src="https://www.tecmint.com/wp-content/themes/tecmint/images/Become-an-Ethical-Hacker.png"></a>
+</div>
+<div class="clear"></div>
+<div class="hr"></div>
+<ul class="post-nav group">
+<li class="next"><a href="https://www.tecmint.com/tcpflow-analyze-debug-network-traffic-in-linux/" rel="next"><i class="fa fa-chevron-right"></i><strong>Next story</strong> <span>TCPflow &#8211; Analyze and Debug Network Traffic in Linux</span></a></li>
+<li class="previous"><a href="https://www.tecmint.com/install-squid-http-proxy-on-centos-7/" rel="prev"><i class="fa fa-chevron-left"></i><strong>Previous story</strong> <span>How to Create an HTTP Proxy Using Squid on CentOS 7</span></a></li>
+</ul>
+<h4 class="heading">
+<i class="fa fa-hand-o-right"></i>You may also like...</h4>
+<ul class="related-posts group">
+<li class="related post-hover">
+<article class="post-24964 post type-post status-publish format-standard has-post-thumbnail hentry category-centos category-redhat tag-elrepo">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/enable-elrepo-in-rhel-centos-scientific-linux/" title="ELRepo &#8211; Community Repo for Enterprise Linux (RHEL, CentOS &#038; SL)">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2017/03/Enable-ELRepo-in-CentOS-RedHat.png" width="720" height="340" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Enable ELRepo in CentOS and RedHat"><noscript><img width="720" height="340" src="https://www.tecmint.com/wp-content/uploads/2017/03/Enable-ELRepo-in-CentOS-RedHat.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Enable ELRepo in CentOS and RedHat" /></noscript> </a>
+<a class="post-comments" href="https://www.tecmint.com/enable-elrepo-in-rhel-centos-scientific-linux/#respond"><span><i class="fa fa-comments-o"></i>0</span></a>
+</div>
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/enable-elrepo-in-rhel-centos-scientific-linux/" rel="bookmark" title="ELRepo &#8211; Community Repo for Enterprise Linux (RHEL, CentOS &#038; SL)">ELRepo &#8211; Community Repo for Enterprise Linux (RHEL, CentOS &#038; SL)</a>
+</h4>
+<div class="post-meta group">
+<p class="post-date">20 Mar, 2017</p>
+</div>
+</div>
+</article>
+</li>
+<li class="related post-hover">
+<article class="post-8927 post type-post status-publish format-standard has-post-thumbnail hentry category-centos category-redhat tag-centos-7">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/remove-unwanted-services-in-centos-7/" title="Disable and Remove Unwanted Services on RHEL/CentOS 7 Minimal Installation">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2014/09/Disable-Unwanted-Services-in-CentOS-7-520x245.jpg" width="520" height="245" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Remove Unwanted Services in CentOS 7" srcset="https://www.tecmint.com/wp-content/uploads/2014/09/Disable-Unwanted-Services-in-CentOS-7-520x245.jpg 520w, https://www.tecmint.com/wp-content/uploads/2014/09/Disable-Unwanted-Services-in-CentOS-7-720x340.jpg 720w" sizes="(max-width: 520px) 100vw, 520px"><noscript><img width="520" height="245" src="https://www.tecmint.com/wp-content/uploads/2014/09/Disable-Unwanted-Services-in-CentOS-7-520x245.jpg" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Remove Unwanted Services in CentOS 7" srcset="https://www.tecmint.com/wp-content/uploads/2014/09/Disable-Unwanted-Services-in-CentOS-7-520x245.jpg 520w, https://www.tecmint.com/wp-content/uploads/2014/09/Disable-Unwanted-Services-in-CentOS-7-720x340.jpg 720w" sizes="(max-width: 520px) 100vw, 520px" /></noscript> </a>
+<a class="post-comments" href="https://www.tecmint.com/remove-unwanted-services-in-centos-7/#comments"><span><i class="fa fa-comments-o"></i>10</span></a>
+</div>
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/remove-unwanted-services-in-centos-7/" rel="bookmark" title="Disable and Remove Unwanted Services on RHEL/CentOS 7 Minimal Installation">Disable and Remove Unwanted Services on RHEL/CentOS 7 Minimal Installation</a>
+</h4>
+<div class="post-meta group">
+<p class="post-date">23 Sep, 2014</p>
+</div>
+</div>
+</article>
+</li>
+<li class="related post-hover">
+<article class="post-2571 post type-post status-publish format-standard has-post-thumbnail hentry category-centos category-open-source tag-asterisk">
+<div class="post-thumbnail">
+<a href="https://www.tecmint.com/install-asterisk-on-centos-7/" title="How to Install Asterisk on CentOS 7">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://www.tecmint.com/wp-content/uploads/2013/04/Install-Asterisk-on-CentOS-7.png" width="720" height="340" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Install Asterisk on CentOS 7"><noscript><img width="720" height="340" src="https://www.tecmint.com/wp-content/uploads/2013/04/Install-Asterisk-on-CentOS-7.png" class="attachment-thumb-medium size-thumb-medium wp-post-image" alt="Install Asterisk on CentOS 7" /></noscript> </a>
+<a class="post-comments" href="https://www.tecmint.com/install-asterisk-on-centos-7/#comments"><span><i class="fa fa-comments-o"></i>22</span></a>
+</div>
+<div class="related-inner">
+<h4 class="post-title">
+<a href="https://www.tecmint.com/install-asterisk-on-centos-7/" rel="bookmark" title="How to Install Asterisk on CentOS 7">How to Install Asterisk on CentOS 7</a>
+</h4>
+<div class="post-meta group">
+<p class="post-date">24 Oct, 2018</p>
+</div>
+</div>
+</article>
+</li>
+</ul>
+<section id="comments" class="themeform">
+<h3 class="heading">33 Responses</h3>
+<ul class="comment-tabs group">
+<li class="active"><a href="#commentlist-container"><i class="fa fa-comments-o"></i>Comments<span>15</span></a></li>
+<li><a href="#pinglist-container"><i class="fa fa-share"></i>Pingbacks<span>0</span></a></li>
+</ul>
+<div id="commentlist-container" class="comment-tab">
+<ol class="commentlist">
+<li class="comment even thread-even depth-1" id="comment-1159851">
+<div id="div-comment-1159851" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/d0c9a4e93f2cad6c3d6a3750b4e2a61c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/d0c9a4e93f2cad6c3d6a3750b4e2a61c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/d0c9a4e93f2cad6c3d6a3750b4e2a61c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/d0c9a4e93f2cad6c3d6a3750b4e2a61c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">jayaram</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1159851">
+June 5, 2019 at 10:57 am </a>
+</div>
+<p>I have installed <strong>tomcat</strong>, can you explain how to configure the web servers?</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1159851#respond' data-commentid="1159851" data-postid="8451" data-belowelement="div-comment-1159851" data-respondelement="respond" aria-label='Reply to jayaram'>Reply</a></div>
+</div>
+</li>
+<li class="comment odd alt thread-odd thread-alt depth-1 parent" id="comment-1111455">
+<div id="div-comment-1111455" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Sarah</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1111455">
+March 13, 2019 at 12:47 am </a>
+</div>
+<p>Hi! I have made up to the point of opening tomcat with <a href="http://myipaddress:8080" rel="nofollow">http://myipaddress:8080</a> and both the IP and domain options are not opening tomcat from putty.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1111455#respond' data-commentid="1111455" data-postid="8451" data-belowelement="div-comment-1111455" data-respondelement="respond" aria-label='Reply to Sarah'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin bypostauthor even depth-2 parent" id="comment-1111656">
+<div id="div-comment-1111656" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Ravi Saive</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1111656">
+March 13, 2019 at 10:44 am </a>
+</div>
+<p>@Sarah,</p>
+<p>Please open the port 8080 of Tomcat on the firewall to access from the public network. Also let me know how you accessing the URL&#8217;s? and what error you getting?</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1111656#respond' data-commentid="1111656" data-postid="8451" data-belowelement="div-comment-1111656" data-respondelement="respond" aria-label='Reply to Ravi Saive'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-3 parent" id="comment-1111960">
+<div id="div-comment-1111960" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Sarah</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1111960">
+March 14, 2019 at 12:07 am </a>
+</div>
+<p>Ravi,</p>
+<p>I have tried in Microsoft Edge, which is telling me &#8220;<strong>Hmmm&#8230;can’t reach this page</strong>&#8221; and on Firefox which is telling me &#8220;<strong>the server is taking too long to respond</strong>&#8221;</p>
+<p>I&#8217;m very new to this, can you briefly tell me how to open the port on the firewall?</p>
+<p>Thank you.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1111960#respond' data-commentid="1111960" data-postid="8451" data-belowelement="div-comment-1111960" data-respondelement="respond" aria-label='Reply to Sarah'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin bypostauthor even depth-4 parent" id="comment-1112322">
+<div id="div-comment-1112322" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Ravi Saive</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1112322">
+March 14, 2019 at 10:58 am </a>
+</div>
+<p>@Sarah,</p>
+<p>First try to access the Tomcat page from the server terminal itself at:</p>
+<pre># yum install links
+# links http://localhost:8080
+</pre>
+<p>If it&#8217;s accessible from the localhost, you should open a port on firewall and allow Tomcat access from public IP.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1112322#respond' data-commentid="1112322" data-postid="8451" data-belowelement="div-comment-1112322" data-respondelement="respond" aria-label='Reply to Ravi Saive'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-5 parent" id="comment-1112590">
+<div id="div-comment-1112590" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/b95cbc238515c65755202fde3dee897c?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Sarah</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1112590">
+March 14, 2019 at 11:02 pm </a>
+</div>
+<p>Ravi,</p>
+<p>That did not work for me. I opened up the firewall port 8080 and still nothing.</p>
+</div>
+</li>
+<li class="comment byuser comment-author-admin bypostauthor even depth-5" id="comment-1113009">
+<div id="div-comment-1113009" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Ravi Saive</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1113009">
+March 15, 2019 at 3:36 pm </a>
+</div>
+<p>@Sarah,</p>
+<p>Then you need to check your Tomcat installation and correct if you missed something..</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="comment odd alt thread-even depth-1 parent" id="comment-1101338">
+<div id="div-comment-1101338" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Martin Schaible</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1101338">
+February 15, 2019 at 8:03 pm </a>
+</div>
+<p>I removed MC, but it wasn&#8217;t the reason.<br />
+It is really strange, that no errors where generated, only a zero byte length log file “catalina.out” was generated.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1101338#respond' data-commentid="1101338" data-postid="8451" data-belowelement="div-comment-1101338" data-respondelement="respond" aria-label='Reply to Martin Schaible'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin bypostauthor even depth-2 parent" id="comment-1101776">
+<div id="div-comment-1101776" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Ravi Saive</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1101776">
+February 16, 2019 at 1:11 pm </a>
+</div>
+<p>@Martin,</p>
+<p>Thanks for your efforts, let&#8217;s give a final try by creating a systemd unit file, with this you can start, stop and enable the tomcat service..</p>
+<p>Create and open the unit file by running this command:</p>
+<pre># vi /etc/systemd/system/tomcat.service
+</pre>
+<p>Paste in the following script. Make sure to modify the memory allocation and path to tomcat installation settings that are specified in CATALINA_OPTS, CATALINA_HOME and CATALINA_PID:</p>
+<pre># Systemd unit file for tomcat
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+Environment=JAVA_HOME=/usr/lib/jvm/jre
+Environment=CATALINA_PID=/opt/tomcat/temp/tomcat.pid
+Environment=CATALINA_HOME=/opt/tomcat
+Environment=CATALINA_BASE=/opt/tomcat
+Environment='CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC'
+Environment='JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom'
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User=tomcat
+Group=tomcat
+UMask=0007
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+</pre>
+<p>Save and exit. This script tells the server to run the Tomcat service as the tomcat user, with the settings specified.</p>
+<p>Now reload Systemd to load the Tomcat unit file and start &#038; enable the service.</p>
+<pre># systemctl daemon-reload
+# systemctl start tomcat
+# systemctl enable tomcat
+</pre>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1101776#respond' data-commentid="1101776" data-postid="8451" data-belowelement="div-comment-1101776" data-respondelement="respond" aria-label='Reply to Ravi Saive'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment odd alt depth-3" id="comment-1102409">
+<div id="div-comment-1102409" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Martin Schaible</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1102409">
+February 17, 2019 at 5:23 pm </a>
+</div>
+<p>Hi Ravi</p>
+<p>I&#8217;m familiary with this. Running Tomcat as a service will fail too with the same behaviour.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1102409#respond' data-commentid="1102409" data-postid="8451" data-belowelement="div-comment-1102409" data-respondelement="respond" aria-label='Reply to Martin Schaible'>Reply</a></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="comment even thread-odd thread-alt depth-1 parent" id="comment-1100888">
+<div id="div-comment-1100888" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Martin Schaible</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1100888">
+February 14, 2019 at 3:11 am </a>
+</div>
+<p>Thanks for this helpful tutorial. I used this article with other sources of information to get a clean installation.</p>
+<p>In my case Tomcat does not start, if i execute &#8220;<strong>./startup.sh</strong>&#8221; which goes to &#8220;<strong>catalina.sh start</strong>&#8220;. Only an empty log file &#8220;<strong>catalina.out</strong>&#8221; was generated.<br />
+If i run &#8220;<strong>./catalina.sh run</strong>&#8220;, tomcat starts and works. In this case, Tomcat runs in the current window. </p>
+<p>Now something weird: If the &#8220;<strong>Midnight Commander</strong>&#8221; is active and i run &#8220;<strong>./startup.sh</strong>&#8220;, it works!</p>
+<p>Looks kind of a shell problem.</p>
+<p>I&#8217;m really stuck, any idea where to look?</p>
+<p>Cheers!</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1100888#respond' data-commentid="1100888" data-postid="8451" data-belowelement="div-comment-1100888" data-respondelement="respond" aria-label='Reply to Martin Schaible'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin bypostauthor odd alt depth-2 parent" id="comment-1100946">
+<div id="div-comment-1100946" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Ravi Saive</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1100946">
+February 14, 2019 at 11:06 am </a>
+</div>
+<p>@Martin,</p>
+<p>This is something really weird thing, I came across, have you tried on different terminal shell?</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1100946#respond' data-commentid="1100946" data-postid="8451" data-belowelement="div-comment-1100946" data-respondelement="respond" aria-label='Reply to Ravi Saive'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment even depth-3 parent" id="comment-1100993">
+<div id="div-comment-1100993" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Martin Schaible</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1100993">
+February 14, 2019 at 4:09 pm </a>
+</div>
+<p>I have a standard CentOS 7 installation like others have. i&#8217;m not really sure, if it a good idea to change the shell systemwide. Keep in mind, that tomcat behaves the same, if i try to start the service instead on the command prompt.</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1100993#respond' data-commentid="1100993" data-postid="8451" data-belowelement="div-comment-1100993" data-respondelement="respond" aria-label='Reply to Martin Schaible'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment byuser comment-author-admin bypostauthor odd alt depth-4 parent" id="comment-1101218">
+<div id="div-comment-1101218" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Ravi Saive</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1101218">
+February 15, 2019 at 11:25 am </a>
+</div>
+<p>I understand that&#8217;s not the perfect way, but could you remove MC and see?</p>
+<div class="reply"><a rel='nofollow' class='comment-reply-link' href='/install-apache-tomcat-in-centos/?replytocom=1101218#respond' data-commentid="1101218" data-postid="8451" data-belowelement="div-comment-1101218" data-respondelement="respond" aria-label='Reply to Ravi Saive'>Reply</a></div>
+</div>
+<ul class="children">
+<li class="comment even depth-5" id="comment-1128864">
+<div id="div-comment-1128864" class="comment-body">
+<div class="comment-author vcard">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/6309fd419e6e130d585bdd250cf5d0bf?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> <cite class="fn">Martin Schaible</cite> <span class="says">says:</span> </div>
+<div class="comment-meta commentmetadata"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-2/#comment-1128864">
+April 10, 2019 at 5:43 pm </a>
+</div>
+<p>I&#8217;m sorry, i didn&#8217;t not see your reply. I have removed MC, but it didn&#8217;t changed the situation.</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<nav class="comments-nav group">
+<div class="nav-previous"><a href="https://www.tecmint.com/install-apache-tomcat-in-centos/comment-page-1/#comments">&laquo; Older Comments</a></div>
+<div class="nav-next"></div>
+</nav>
+</div>
+<div id="respond" class="comment-respond">
+<h3 id="reply-title" class="comment-reply-title">Got something to say? Join the discussion. <small><a rel="nofollow" id="cancel-comment-reply-link" href="/install-apache-tomcat-in-centos/#respond" style="display:none;">Cancel reply</a></small></h3> <form action="https://www.tecmint.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+<p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> Required fields are marked <span class="required">*</span></p><p class="comment-form-comment"><label for="comment">Comment</label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required="required"></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required='required' /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="text" value="" size="30" maxlength="100" aria-describedby="email-notes" required='required' /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="text" value="" size="30" maxlength="200" /></p>
+<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes" /><label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
+<p class='comment-form-subscriptions'><label for='subscribe-reloaded'><input style='width:30px' type='checkbox' name='subscribe-reloaded' id='subscribe-reloaded' value='yes' /> Notify me of followup comments via e-mail. You can also <a href='https://www.tecmint.com/comment-subscriptions/?srp=8451&amp;srk=0b81c0e99cc43eb9ade2ba1b6ab240b4&amp;sra=s&amp;srsrc=f'>subscribe</a> without commenting.</label></p><p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='8451' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="fe90910451" /></p><p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="102" /></p> </form>
+</div>
+<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</section>
+</div>
+</section>
+<div class="sidebar s1">
+<a class="sidebar-toggle" title="Expand Sidebar"><i class="fa icon-sidebar-toggle"></i></a>
+<div class="sidebar-content">
+<div class="sidebar-top group">
+<span style="color:#002873; font-weight:600; font-size:20px;">I <i class="fa fa-heart col-love-l"></i> TecMint :</span>
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="https://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: #db4a39;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="https://feedly.com/i/subscription/feed/https://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul> </div>
+<div id="text-23" class="widget widget_text"> <div class="textwidget"> <div style="background:#db4455;" class="message">
+<center><a href="https://www.tecmint.com/free-online-linux-learning-guide-for-beginners/" target="_blank" rel="noopener noreferrer"><span style="font-weight:bold;font-size:18px;"><i class="fa fa-linux"></i> BEGINNER'S GUIDE FOR LINUX <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Start learning Linux in minutes</span> <i class="fa fa-arrow-right"></i></a>
+</center>
+</div></div>
+</div><div id="text-21" class="widget widget_text"> <div class="textwidget"><center>
+
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-2601749019656699" data-ad-slot="7270921771"></ins>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</center></div>
+</div><div id="text-25" class="widget widget_text"> <div class="textwidget"><div class="message"><center><a href="https://www.tecmint.com/vi-editor-usage/" target="_blank" rel="noopener noreferrer"><span style="font-weight:bold;font-size:17px;"><i class="fa fa-linux"></i> Vi/Vim Editor BEGINNER'S GUIDE <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Learn vi/vim as a Full Text Editor</span> <i class="fa fa-file-text"></i>
+</a></center></div></div>
+</div><div id="text-24" class="widget widget_text"> <div class="textwidget">
+<ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-2601749019656699" data-ad-slot="8362602806"></ins>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>
+</div><div id="text-26" class="widget widget_text"> <div class="textwidget"><div class="message" style="background-color: #ab0619;"><center><span style="font-weight:bold;font-size:17px;"><i class="fa fa-linux"></i> Linux Foundation Certification <i class="fa fa-linux"></i></span> <span style="font-weight:bold;font-size:16px;">Exam Study Guide to <a style="text-decoration:underline;" target="_blank" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" rel="noopener noreferrer">LFCS and LFCE</a></span></center></div></div>
+</div><div id="alxtabs-3" class="widget widget_alx_tabs">
+<ul class="alx-tabs-nav group tab-count-2"><li class="alx-tab tab-popular"><a href="#tab-popular" title="Popular Posts"><i class="fa fa-star"></i><span>Popular Posts</span></a></li><li class="alx-tab tab-comments"><a href="#tab-comments" title="Recent Comments"><i class="fa fa-comments-o"></i><span>Recent Comments</span></a></li></ul>
+<div class="alx-tabs-container">
+<ul id="tab-popular" class="alx-tab group ">
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/how-to-add-linux-host-to-nagios-monitoring-server/" rel="bookmark" title="How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin">How to Add Linux Host to Nagios Monitoring Server Using NRPE Plugin</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-nagios-in-linux/" rel="bookmark" title="How to Install Nagios 4.3.4 on RHEL, CentOS and Fedora">How to Install Nagios 4.3.4 on RHEL, CentOS and Fedora</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-cacti-network-monitoring-on-rhel-centos-6-3-5-8-and-fedora-17-12/" rel="bookmark" title="Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 24-12">Install Cacti (Network Monitoring) on RHEL/CentOS 7.x/6.x/5.x and Fedora 24-12</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-google-chrome-on-redhat-centos-fedora-linux/" rel="bookmark" title="How to Install Google Chrome 75 On RHEL/CentOS 7 and Fedora 30">How to Install Google Chrome 75 On RHEL/CentOS 7 and Fedora 30</a></p>
+</div>
+</li>
+<li>
+<div class="tab-item-inner group">
+<p class="tab-item-title"><a href="https://www.tecmint.com/install-ubuntu-16-04-alongside-with-windows-10-or-8-in-dual-boot/" rel="bookmark" title="How to Install Ubuntu 16.10/16.04 Alongside With Windows 10 or 8 in Dual-Boot">How to Install Ubuntu 16.10/16.04 Alongside With Windows 10 or 8 in Dual-Boot</a></p>
+</div>
+</li>
+</ul>
+<ul id="tab-comments" class="alx-tab group avatars-enabled">
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-different-php-versions-in-ubuntu/comment-page-3/#comment-1181439">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7badddbc53297b2e8ed7011cf45df0c0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> </a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Ravi Saive says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-different-php-versions-in-ubuntu/comment-page-3/#comment-1181439">@Everton, I think it should work, give a try and...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-virtualbox-guest-additions-in-ubuntu/comment-page-2/#comment-1181407">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/7bc4f9d5a423e074e8e550c94250ca3e?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/7bc4f9d5a423e074e8e550c94250ca3e?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/7bc4f9d5a423e074e8e550c94250ca3e?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/7bc4f9d5a423e074e8e550c94250ca3e?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> </a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Carlos says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-virtualbox-guest-additions-in-ubuntu/comment-page-2/#comment-1181407">Works 100% thanks for share</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-lemp-nginx-php-mariadb-phpmyadmin-in-opensuse/comment-page-1/#comment-1181030">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/4e444ab611c7b8c7bcb76e58d2e82ae0?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> </a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Aaron Kili says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-lemp-nginx-php-mariadb-phpmyadmin-in-opensuse/comment-page-1/#comment-1181030">@Arthur We actually offer server management and...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/how-to-check-disk-space-in-linux/comment-page-4/#comment-1181020">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/f5e15afe6ab541827a1fff1d0c993e32?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/f5e15afe6ab541827a1fff1d0c993e32?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/f5e15afe6ab541827a1fff1d0c993e32?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/f5e15afe6ab541827a1fff1d0c993e32?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> </a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Kiran says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/how-to-check-disk-space-in-linux/comment-page-4/#comment-1181020">You have put the details other way around -h uses 1024...</a></div>
+</div>
+</li>
+<li>
+<div class="tab-item-avatar">
+<a href="https://www.tecmint.com/install-and-configure-roundcube-webmail-for-postfix-mail-server/comment-page-2/#comment-1180939">
+<img src="https://www.tecmint.com/wp-content/plugins/lazy-load/images/1x1.trans.gif" data-lazy-src="https://secure.gravatar.com/avatar/b4a1e04e1505684856317c2600686714?s=96&#038;d=blank&#038;r=g" alt srcset="https://secure.gravatar.com/avatar/b4a1e04e1505684856317c2600686714?s=192&#038;d=blank&#038;r=g 2x" class="avatar avatar-96 photo" height="96" width="96"><noscript><img alt='' src='https://secure.gravatar.com/avatar/b4a1e04e1505684856317c2600686714?s=96&#038;d=blank&#038;r=g' srcset='https://secure.gravatar.com/avatar/b4a1e04e1505684856317c2600686714?s=192&#038;d=blank&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' /></noscript> </a>
+</div>
+<div class="tab-item-inner group">
+<div class="tab-item-name">Pierre Colart says:</div>
+<div class="tab-item-comment"><a href="https://www.tecmint.com/install-and-configure-roundcube-webmail-for-postfix-mail-server/comment-page-2/#comment-1180939">Thank you for your reply but I have this error now...</a></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id="text-27" class="widget widget_text"> <div class="textwidget"><center>
+<a target="_blank" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" rel="noopener noreferrer"><img alt="RedHat RHCSA and RHCE Certification Exam Study Ebook" src="https://www.tecmint.com/wp-content/uploads/2015/01/RedHat-RHCSA-RHCE-Exam.png" /></a>
+</center></div>
+</div><div id="text-28" class="widget widget_text"> <div class="textwidget"><div class="message" style="background-color: #0d7c39;"><center><p style="font-weight:bold;font-size:18px;">Linux System Administrator Bundle with 7-Courses (96% off)</p>
+<p style="background-color: #03441d;margin:6px 35px;padding:10px;"><a rel="nofollow noopener noreferrer" target="_blank" href="https://deals.tecmint.com/sales/complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensuse?utm_source=tecmint.com&amp;utm_medium=referral&amp;utm_campaign=complete-linux-crash-course-includes-topics-on-red-hat-unix-kali-python-and-opensu&amp;_ga=1.95416024.550662903.1451974395" style="font-size:25px;font-weight:bold;">Add to Cart - $69</a></p>
+<p style="font-size:14px;font-weight:bold;"><i aria-hidden="true" class="fa fa-clock-o"></i> Ending In: 3 days
+</p></center></div>
+<div style="background-color: #f4403b;" class="message"><center><p style="font-weight:bold;font-size:18px;">Computer Hacker Professional Certification Course (96% Off)</p>
+<p style="background-color: #9d1815;margin:6px 35px;padding:10px;"><a style="font-size:25px;font-weight:bold;" href="https://deals.tecmint.com/sales/computer-hacker-professional-certification-package-2" target="_blank" rel="nofollow noopener noreferrer">Add to Cart - $59</a></p>
+<p style="font-size:14px;font-weight:bold;"><i class="fa fa-clock-o" aria-hidden="true"></i> Ending In: 4 days
+</p></center></div></div>
+</div><div id="text-4" class="widget widget_text"><h3>Linux eBooks</h3> <div class="textwidget"><ol class="custom-counter">
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Learn Linux in One Week','TecMint')" href="https://www.tecmint.com/learn-linux-in-one-week/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Introducing Learn Linux In One Week and Go from Zero to Hero</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','RedHat RHCE/RHCSA Guide','TecMint')" href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">RedHat RHCE/RHCSA Certification Preparation Guide</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Linux Foundation LFCS/LFCE Guide','TecMint')" href="https://www.tecmint.com/linux-foundation-lfcs-lfce-certification-exam-book/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Linux Foundations LFCS/LFCE Certification Guide</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Postfix Mail Server Setup','TecMint')" href="https://www.tecmint.com/postfix-mail-server-setup-linux-book/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Postfix Mail Server Setup Guide for Linux</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Ansible Setup Guide','TecMint')" href="https://www.tecmint.com/ansible-book-guide-for-linux/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Ansible Setup Guide for Linux</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Django Setup Guide','TecMint')" href="https://www.tecmint.com/django-web-framework-book/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Django Setup Guide for Linux</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Awk Guide for Beginners','TecMint')" href="https://www.tecmint.com/linux-awk-command-book-for-beginners/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Awk Getting Started Guide for Beginners</a></li>
+<li><a onclick="if (!window.__cfRLUnblockHandlers) return false; ga('send','event','Citrix XenServer Setup Guide','TecMint')" href="https://www.tecmint.com/citrix-xenserver-book-for-linux/" target="_blank" rel="noopener noreferrer" data-cf-modified-ad3e3a031b224aee6dddbce0-="">Citrix XenServer Setup Guide for Linux</a></li>
+</ol></div>
+</div><div id="text-29" class="widget widget_text"> <div class="textwidget"><div style="background-color: rgb(25, 67, 87); color: rgb(255, 255, 255); border-radius: 5px; text-align: center; padding: 10px;">
+<div class="follow-subscribe-social">
+<ul>
+<li><a href="https://twitter.com/tecmint" target="_blank" rel="noopener noreferrer"><i class="fa fa-twitter"></i></a></li>
+<li><a href="https://www.facebook.com/TecMint" target="_blank" rel="noopener noreferrer"><i class="fa fa-facebook"></i></a></li>
+<li><a href="https://plus.google.com/101049688653487009744" target="_blank" rel="noopener noreferrer"><i class="fa fa-google"></i></a></li>
+<li><a href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="_blank" rel="noopener noreferrer"><i class="fa fa-youtube"></i></a></li>
+<li><a href="https://www.linkedin.com/company/tecmint" target="_blank" rel="noopener noreferrer"><i class="fa fa-linkedin"></i></a></li>
+</ul>
+</div>
+<p style="font-weight: bold; font-size: 20px; margin-bottom: 10px; margin-top: 10px;">Never Miss Any Linux Tutorials, Guides, Tips and Free eBooks</p>
+<p>Join Our Community Of <strong style="color:#fff;font-weight:bold;">150,000+ Linux Lovers</strong> and get a weekly newsletter in your inbox</p>
+<p style="background-color: rgb(0, 0, 0); border-radius: 5px; padding: 6px;"><a style="font-size:20px;font-weight:bold;color:#fff;" href="http://subscribe.tecmint.com/newsletter" target="_blank" rel="nofollow noopener noreferrer">YES! SIGN ME UP</a></p></div></div>
+</div><div id="text-32" class="widget widget_text"> <div class="textwidget"><p><br />
+<ins class="adsbygoogle" style="display: inline-block; width: 300px; height: 250px;" data-ad-client="ca-pub-2601749019656699" data-ad-slot="9838765188"></ins><br />
+<script type="ad3e3a031b224aee6dddbce0-text/javascript">
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer id="footer">
+<section class="container" id="footer-ads">
+<div class="container-inner">
+<div id="text-30" class="widget widget_text"> <div class="textwidget"><p><center><script type="ad3e3a031b224aee6dddbce0-text/javascript">
+var total_images = 2;
+var random_number = Math.floor((Math.random()*total_images));
+var random_img = new Array();
+random_img[0] = '<a target="_blank" rel="nofollow noopener noreferrer" href="https://shareasale.com/r.cfm?b=1226423&#038;u=1260899&#038;m=59485&#038;urllink=&#038;afftrack="><img src="https://www.fossmint.com/wp-content/themes/fossmint/backupads/Linux-Foundation-LFCS-Certification.png"/></a>';
+random_img[1] = '<a target="_blank" rel="nofollow noopener noreferrer" href="https://shareasale.com/r.cfm?b=1226424&#038;u=1260899&#038;m=59485&#038;urllink=&#038;afftrack="><img src="https://www.fossmint.com/wp-content/themes/fossmint/backupads/Linux-Foundation-LFCE-Certification.png"/></a>';
+document.write(random_img[random_number]);
+</script></center></p>
+</div>
+</div> </div>
+</section>
+<section class="container" id="footer-widgets">
+<div class="container-inner">
+<div class="pad group">
+<div class="footer-widget-1 grid one-third ">
+<div id="alxposts-3" class="widget widget_alx_posts">
+<h3>Linux Monitoring Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/cbm-shows-network-bandwidth-traffic-in-ubuntu/" rel="bookmark" title="CBM &#8211; Shows Network Bandwidth in Ubuntu">CBM &#8211; Shows Network Bandwidth in Ubuntu</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/sysdig-system-monitoring-and-troubleshooting-tool-for-linux/" rel="bookmark" title="Sysdig &#8211;  A Powerful System Monitoring and Troubleshooting Tool for Linux">Sysdig &#8211; A Powerful System Monitoring and Troubleshooting Tool for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/ngxtop-monitor-nginx-log-files-in-real-time-in-linux/" rel="bookmark" title="ngxtop &#8211; Monitor Nginx Log Files in Real Time in Linux">ngxtop &#8211; Monitor Nginx Log Files in Real Time in Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/install-conky-in-ubuntu-debian-fedora/" rel="bookmark" title="Conky &#8211; The Ultimate X Based System Monitor Application">Conky &#8211; The Ultimate X Based System Monitor Application</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/sysstat-commands-to-monitor-linux/" rel="bookmark" title="20 Useful Commands of &#8216;Sysstat&#8217; Utilities (mpstat, pidstat, iostat and sar) for Linux Performance Monitoring">20 Useful Commands of &#8216;Sysstat&#8217; Utilities (mpstat, pidstat, iostat and sar) for Linux Performance Monitoring</a></p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="footer-widget-2 grid one-third ">
+<div id="alxposts-4" class="widget widget_alx_posts">
+<h3>Linux Interview Questions</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/basic-mysql-interview-questions-for-database-administrators/" rel="bookmark" title="15 Basic MySQL Interview Questions for Database Administrators">15 Basic MySQL Interview Questions for Database Administrators</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/networking-interview-questions/" rel="bookmark" title="10 Basic Interview Questions and Answers on Linux Networking &#8211; Part 1">10 Basic Interview Questions and Answers on Linux Networking &#8211; Part 1</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/10-interview-questions-and-answers-on-various-commands-in-linux/" rel="bookmark" title="10 Interview Questions and Answers on Various Commands in Linux">10 Interview Questions and Answers on Various Commands in Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/mysql-advance-interview-questions/" rel="bookmark" title="11 Advance MySQL Database &#8220;Interview Questions and Answers&#8221; for Linux Users">11 Advance MySQL Database &#8220;Interview Questions and Answers&#8221; for Linux Users</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/ls-interview-questions/" rel="bookmark" title="10 Useful &#8216;ls&#8217; Command Interview Questions &#8211; Part 2">10 Useful &#8216;ls&#8217; Command Interview Questions &#8211; Part 2</a></p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="footer-widget-3 grid one-third last">
+<div id="alxposts-5" class="widget widget_alx_posts">
+<h3>Open Source Tools</h3>
+<ul class="alx-posts group ">
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-clipboard-managers-for-linux/" rel="bookmark" title="10 Best Clipboard Managers for Linux">10 Best Clipboard Managers for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-gui-git-clients-git-repository-viewers-for-linux/" rel="bookmark" title="11 Best Graphical Git Clients and Git Repository Viewers for Linux">11 Best Graphical Git Clients and Git Repository Viewers for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-linux-file-diff-tools-comparison/" rel="bookmark" title="9 Best File Comparison and Difference (Diff) Tools for Linux">9 Best File Comparison and Difference (Diff) Tools for Linux</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/best-image-photo-editors-for-linux/" rel="bookmark" title="15 Best Linux Photo/Image Editors I Discovered in 2015">15 Best Linux Photo/Image Editors I Discovered in 2015</a></p>
+</div>
+</li>
+<li>
+<div class="post-item-inner group">
+<p class="post-item-title"><a href="https://www.tecmint.com/different-types-of-linux-shells/" rel="bookmark" title="5 Most Frequently Used Open Source Shells for Linux">5 Most Frequently Used Open Source Shells for Linux</a></p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<nav class="nav-container group" id="nav-footer">
+<div class="nav-toggle"><i class="fa fa-bars"></i></div>
+<div class="nav-text"></div>
+<div class="nav-wrap"><ul id="menu-footer" class="nav container group"><li id="menu-item-18572" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18572"><a href="https://www.tecmint.com/donate-to-tecmint/">Donate to TecMint</a></li>
+<li id="menu-item-10437" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10437"><a href="https://www.tecmint.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-10442" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10442"><a href="https://www.tecmint.com/advertise/">Advertise on TecMint</a></li>
+<li id="menu-item-10441" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10441"><a href="https://www.tecmint.com/services/">Linux Services</a></li>
+<li id="menu-item-10435" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10435"><a href="https://www.tecmint.com/copyright-policy/">Copyright Policy</a></li>
+<li id="menu-item-10436" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10436"><a href="https://www.tecmint.com/privacy-policy/">Privacy Policy</a></li>
+<li id="menu-item-13339" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13339"><a href="https://www.tecmint.com/career/">Career</a></li>
+<li id="menu-item-24288" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-24288"><a href="https://www.tecmint.com/sponsored-post-guidelines-tecmint/">Sponsored Post</a></li>
+</ul></div>
+</nav>
+<section class="container" id="footer-bottom">
+<div class="container-inner">
+<a id="back-to-top" href="#"><i class="fa fa-angle-up"></i></a>
+<div class="pad group">
+<div class="grid one-half">
+<div id="copyright">
+<p>Tecmint: Linux Howtos, Tutorials &amp; Guides &copy; 2019. All Rights Reserved.</p>
+<p>The material in this site cannot be republished either online or offline, without our permission.</p>
+</div>
+</div>
+<div class="grid one-half last">
+<ul class="social-links"><li><a rel="nofollow" class="social-tooltip" title="twitter" href="https://twitter.com/tecmint" target="Array"><i class="fa fa-twitter" style="color: #33ccff;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="facebook" href="https://www.facebook.com/TecMint" target="Array"><i class="fa fa-facebook" style="color: #3b5998;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Google+" href="https://plus.google.com/101049688653487009744" target="Array"><i class="fa fa-google-plus" style="color: #db4a39;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Feedly" href="https://feedly.com/i/subscription/feed/https://www.tecmint.com/feed/" target="Array"><i class="fa fa-rss" style="color: #87c040;"></i></a></li><li><a rel="nofollow" class="social-tooltip" title="Youtube" href="https://www.youtube.com/channel/UCkiRkzdLvoGBtW_YArytJlQ" target="Array"><i class="fa fa fa-youtube-square" style="color: #c4302b;"></i></a></li></ul> </div>
+</div>
+</div>
+</section>
+</footer>
+</div>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/plugins/light/js/jquery.fancybox.pack.js'></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/plugins/light/js/light.js'></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/themes/tecmint/js/scripts.js'></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/themes/tecmint/js/jquery.sharrre.min.js'></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-includes/js/comment-reply.min.js'></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/plugins/lazy-load/js/jquery.sonar.min.js'></script>
+<script type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/plugins/lazy-load/js/lazy-load.js'></script>
+<script async="async" type="ad3e3a031b224aee6dddbce0-text/javascript" src='https://www.tecmint.com/wp-content/plugins/akismet/_inc/form.js'></script>
+<!--[if lt IE 9]>
+<script src="https://www.tecmint.com/wp-content/themes/tecmint/js/ie/respond.js"></script>
+<![endif]-->
+<div class="fixedBar">
+<div class="boxfloat">
+<ul id="tips">
+<li><a href="https://www.tecmint.com/51-useful-lesser-known-commands-for-linux-users/">51 Useful Lesser Known Commands for Linux Users</a></li>
+<li><a href="https://www.tecmint.com/linux-server-hardening-security-tips/">25 Hardening Security Tips for Linux Servers</a></li>
+<li><a href="https://www.tecmint.com/60-commands-of-linux-a-guide-from-newbies-to-system-administrator/">60 Commands of Linux : A Guide from Newbies to System Administrator</a></li>
+<li><a href="https://www.tecmint.com/command-line-tools-to-monitor-linux-performance/">20 Command Line Tools to Monitor Linux Performance</a></li>
+<li><a href="https://www.tecmint.com/18-tar-command-examples-in-linux/">18 Tar Command Examples in Linux</a></li>
+<li><a href="https://www.tecmint.com/20-linux-yum-yellowdog-updater-modified-commands-for-package-mangement/">20 Linux YUM (Yellowdog Updater, Modified) Commands</a></li>
+<li><a href="https://www.tecmint.com/useful-basic-commands-of-apt-get-and-apt-cache-for-package-management/">25 Useful Basic Commands of APT-GET and APT-CACHE</a></li>
+<li><a href="https://www.tecmint.com/20-funny-commands-of-linux-or-linux-is-fun-in-terminal/">20 Funny Commands of Linux or Linux is Fun in Terminal</a></li>
+<li><a href="https://www.tecmint.com/red-hat-rhcsa-rhce-exam-certification-book/">Ebook: Introducing the RHCSA and RHCE Exam Preparation Guide</a></li>
+<li><a href="https://www.tecmint.com/sed-command-to-create-edit-and-manipulate-files-in-linux/">Preparation for the LFCS (Linux Foundation Certified SysAdmin) Exam</a></li>
+<li><a href="https://www.tecmint.com/installing-network-services-and-configuring-services-at-system-boot/">Preparation for the LFCE (Linux Foundation Certified Engineer) Exam</a></li>
+<li><a href="https://www.tecmint.com/10-useful-free-linux-ebooks-for-newbies-and-administrators/">10 Useful Free Linux eBooks for Newbies and Administrators</a></li>
+<li><a href="https://www.tecmint.com/free-linux-shell-scripting-books/">4 Free Shell Scripting eBooks for Newbies and Administrators</a></li>
+</ul>
+</div>
+</div>
+<script src="https://ajax.cloudflare.com/cdn-cgi/scripts/a2bd7673/cloudflare-static/rocket-loader.min.js" data-cf-settings="ad3e3a031b224aee6dddbce0-|49" defer=""></script></body>
+</html>
+
